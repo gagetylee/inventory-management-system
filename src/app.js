@@ -5,10 +5,13 @@ const app = express();
 // Connect to database
 connectDB();
 
+app.set('view engine', 'ejs');
 // Init middleware
 app.use(express.json({ extended: false }));
 
-app.get('/', (req, res) => res.send('API running'));
+app.get('/', (req, res) => {
+    res.send('API Running');
+});
 
 app.use('/product', require('./routes/product'));
 

@@ -7,16 +7,21 @@ const Product = require('../models/Product');
 // @route   POST /product
 // @desc    Create a new product
 router.post('/', [
-    check('name', 'Name is required').not().isEmpty(),
-    check('sku', 'SKU is required').not().isEmpty(),
-    check('price', 'Price is required').not().isEmpty()
+    check('name', 'Name is required')
+        .trim()
+        .notEmpty(),
+    check('price')
+        .notEmpty().withMessage('Price cannot be empty').bail()
+        .isFloat({ min: 0 }).withMessage('Price cannot be negative'),
+    check('stock')
+        .if((value, { req }) => value).bail()
+        .isFloat({ min: 0 }).withMessage('Stock cannot be negative')
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
     try {
-        console.log(req.body);
         let product = await Product.findOne({ sku: req.body.sku });
         if (product) {
             return res.status(400).json({ errors: ['Product already exists'] });
@@ -65,5 +70,64 @@ router.get('/:sku', async (req, res) => {
         res.status(500).send();
     }
 })
+
+// @route   DELETE /product/:sku
+// @desc    Delete a product by sku
+router.delete('/:sku', async (req, res) => {
+    try {
+        const product = await Product.findOneAndDelete({ sku: req.params.sku });
+        if (!product) {
+            return res.status(404).json({ msg: 'Product not found' });
+        }
+        res.json(product);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send();
+    }
+})
+
+// @route   PUT /product/:sku
+// @desc    Edit a product
+router.put('/:sku', [
+    check('stock', 'Stock cannot be negative').isFloat({ min: 0 }),
+    check('price', 'Price cannot be negative').isFloat({ min: 0 })
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const {
+        name,
+        brand,
+        sku,
+        price,
+        stock
+    } = req.body;
+
+    let productFields = {};
+    if (name) productFields.name = name;
+    if (brand) productFields.brand = brand;
+    if (sku) productFields.sku = sku;
+    if (price) productFields.price = price;
+    if (stock) productFields.stock = stock;
+
+    try {
+        const product = await Product.findOneAndUpdate(
+            { sku: req.params.sku },
+            { $set: productFields },
+            { new: true }
+        );
+        if (!product) {
+            return res.status(404).json({ msg: 'Product not found' });
+        }
+
+        res.json(product);
+    } catch (error) {
+        console.error(err.message);
+        res.status(500).send();
+    }
+})
+
 
 module.exports = router;
