@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { validator, validationResult, check } = require('express-validator');
 const { route } = require('express/lib/router');
-const Product = require('../models/Product');
+const Product = require('../../models/Product');
 
 // @route   POST /product
 // @desc    Create a new product
@@ -128,6 +128,5 @@ router.put('/:sku', [
         res.status(500).send();
     }
 })
-
 
 module.exports = router;

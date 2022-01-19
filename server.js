@@ -5,17 +5,17 @@ const app = express();
 // Connect to database
 connectDB();
 
-app.set('view engine', 'ejs');
 // Init middleware
 app.use(express.json({ extended: false }));
 
+
 app.get('/', (req, res) => {
-    res.send('API Running');
+    res.render('./client/index');
 });
 
-app.use('/product', require('./routes/product'));
+app.use('/product', require('./routes/api/product'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-})
+});
