@@ -1,0 +1,27 @@
+<div class="form-group">
+    <label for="name">Product Name</label>
+    <input required value="<%= product[0].name%>" type="text" name="name" id="name" class="form-control">
+</div>
+<br>
+<div class="form-group">
+    <label for="brand">Brand</label>
+    <input value="<%= product[0].brand%>" type="text" name="brand" id="brand" class="form-control">
+</div>
+<br>
+<div class="form-group">
+    <label for="brand">Price</label>
+    <input required value="<%= product[0].price%>" type="number" name="price" id="price" class="form-control">
+</div>
+<br>
+<div class="form-group">
+    <label for="brand">Stock</label>
+    <input required value="<%= product[0].stock%>" type="number" name="stock" id="stock" class="form-control">
+</div>
+<br>
+<div class="form-group">
+    <label for="brand">SKU</label>
+    <input value="<%= product[0].sku%>" type="text" name="sku" id="sku" class="form-control">
+</div>
+<br>
+<a href="/" class="btn btn-secondary">Cancel</a>
+<button type="submit" class="btn btn-primary">Save</button>

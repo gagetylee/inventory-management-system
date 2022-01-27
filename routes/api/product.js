@@ -35,7 +35,7 @@ router.post('/', [
             stock: req.body.stock
         })
         await product.save();
-        res.json(product);
+        res.redirect('/');
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
@@ -79,7 +79,7 @@ router.delete('/:sku', async (req, res) => {
         if (!product) {
             return res.status(404).json({ msg: 'Product not found' });
         }
-        res.json(product);
+        res.redirect('/');
     } catch (err) {
         console.error(err.message);
         res.status(500).send();
@@ -107,7 +107,7 @@ router.put('/:sku', [
 
     let productFields = {};
     if (name) productFields.name = name;
-    if (brand) productFields.brand = brand;
+    productFields.brand = brand;
     if (sku) productFields.sku = sku;
     if (price) productFields.price = price;
     if (stock) productFields.stock = stock;
@@ -122,7 +122,7 @@ router.put('/:sku', [
             return res.status(404).json({ msg: 'Product not found' });
         }
 
-        res.json(product);
+        res.redirect('/');
     } catch (error) {
         console.error(err.message);
         res.status(500).send();
