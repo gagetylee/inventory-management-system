@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Product</h1>
+        <form class="form" action="/api/product/<%=product[0].sku%>?_method=PUT" method="POST">
+            <div class="form-group">
+                <label for="name">Product Name</label>
+                <input required value="<%= product[0].name%>" type="text" name="name" id="name" class="form-control">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="brand">Brand</label>
+                <input value="<%= product[0].brand%>" type="text" name="brand" id="brand" class="form-control">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="brand">Price</label>
+                <input required value="<%= product[0].price%>" type="number" name="price" id="price" class="form-control">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="brand">Stock</label>
+                <input required value="<%= product[0].stock%>" type="number" name="stock" id="stock" class="form-control">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="brand">SKU</label>
+                <input value="<%= product[0].sku%>" type="text" name="sku" id="sku" class="form-control">
+            </div>
+            <br>
+            <a href="/" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</html>
