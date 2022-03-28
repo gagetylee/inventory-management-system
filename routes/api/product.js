@@ -127,6 +127,7 @@ router.put('/:sku', [
         console.error(err.message);
         res.status(500).send();
     }
+    
 })
 
 module.exports = router;

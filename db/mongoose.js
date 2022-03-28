@@ -1,6 +1,7 @@
+const config = require('config');
 const mongoose = require('mongoose');
 
-let db = process.env.DB_URI;
+const db = `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_CLUSTER_NAME}.r9yfq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 const connectDB = async () => {
     try {
         await mongoose.connect(db, {
@@ -9,7 +10,7 @@ const connectDB = async () => {
 
         console.log('MongoDB connected...')
     } catch (err) {
-        console.error(err.message);
+        console.error("Invalid MongoDB credentials");
         process.exit(1);
     }
 }

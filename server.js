@@ -1,5 +1,4 @@
 const express = require('express');
-require('dotenv').config()
 const connectDB = require('./db/mongoose');
 const methodOverride = require('method-override');
 const app = express();
